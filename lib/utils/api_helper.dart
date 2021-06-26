@@ -6,7 +6,7 @@ class ApiHelper {
 
 
   static Future<Response> makeGetRequest(url) async {
-    print("GET ==><== $url");
+    // print("GET ==><== $url");
     return await Dio().get(url, options: Options(
       headers: {
         "x-rapidapi-key": "19098355edmshf1ffa53ca72495fp1afd58jsn3303764620a0",

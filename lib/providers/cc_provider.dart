@@ -27,30 +27,27 @@ class CurrencyConverterProvider extends ChangeNotifier {
   void initialize() async {
 
     loading = true;
-    print("This was called");
-    try {
-      // get the list of all currencies
-      print("Getting list of currencies...");
-      var response = await ApiHelper.makeGetRequest(GET_CURRENCIES_ENDPOINT);
-      print("Currency list of currencies arrived...");
-      if (response.statusCode == 200) {
-        print("Currency list of currencies arrived...");
-        var data = response.data;
-        print("Currencies");
-        print(data);
-        // currencies = List.from(data['results']).map((e) => Currency.fromJson(e)).toList();
 
+    try {
+
+      var response = await ApiHelper.makeGetRequest(GET_CURRENCIES_ENDPOINT);
+
+      loading = false;
+      if (response.statusCode == 200) {
+        // print("Currency list of currencies arrived...");
+        var data = response.data;
+        // print("Currencies");
+        // print(data);
         Map.from(data['symbols']).forEach((key, value) {
-          print("$key ==><== $value");
+          // print("$key ==><== $value");
           var currency = Currency(currencyId: key, currencyName: value, currencySymbol: key);
           currencies.add(currency);
         });
         from = currencies.first;
         to = currencies.last;
-        loading = false;
         errorOccurred = false;
         message = '';
-        print(currencies);
+        // print(currencies);
       } else {
         print("Error occurred...");
         errorOccurred = true;
@@ -58,6 +55,7 @@ class CurrencyConverterProvider extends ChangeNotifier {
       }
       notifyListeners();
     } catch (error) {
+      loading = false;
       errorOccurred = true;
       message = error.toString();
       notifyListeners();
