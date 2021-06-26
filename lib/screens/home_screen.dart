@@ -132,7 +132,6 @@ class HomeScreen extends StatelessWidget {
                               child: Icon(Icons.swap_horiz),
                               onPressed: (
                                   (currencyConverter.to == null || currencyConverter.from == null)
-                                  || (currencyConverter.amountController.text == '0')
                                   || currencyConverter.operationState.inProgress) ? null : () => currencyConverter.switchCurrency(),
                             ),
                           ],
