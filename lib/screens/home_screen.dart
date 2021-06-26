@@ -130,7 +130,10 @@ class HomeScreen extends StatelessWidget {
                                 backgroundColor: MaterialStateColor.resolveWith((states) => Colors.green)
                               ),
                               child: Icon(Icons.swap_horiz),
-                              onPressed: ((currencyConverter.to == null || currencyConverter.from == null) || currencyConverter.operationState.inProgress) ? null : () => currencyConverter.switchCurrency(),
+                              onPressed: (
+                                  (currencyConverter.to == null || currencyConverter.from == null)
+                                  || (currencyConverter.amountController.text == '0')
+                                  || currencyConverter.operationState.inProgress) ? null : () => currencyConverter.switchCurrency(),
                             ),
                           ],
                         ),
@@ -147,7 +150,8 @@ class HomeScreen extends StatelessWidget {
                       if (!currencyConverter.operationState.inProgress && currencyConverter.operationState.errorOccurred)
                         ...[
                           Center(child: Text('${currencyConverter.operationState.message}', style: TextStyle(color: Colors.red),))
-                        ]
+                        ],
+
                     ],
                   ),
                 );
@@ -155,6 +159,9 @@ class HomeScreen extends StatelessWidget {
             }
           },
         ),
+        persistentFooterButtons: [
+          Text('made by @toykam')
+        ],
       ),
     );
   }
